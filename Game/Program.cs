@@ -12,13 +12,24 @@ namespace Game
     {
         static void Main(string[] args)
         {
-            DBM.SQLInitialise();
-            Player player = GM.Init();
-            DM.ShowStats(player);
+            //DBM.SQLInitialise();
+            //Player player = GM.Init();
+            //DM.ShowStats(player);
 
-            LM.GenWeapon(1);
+            //Weapon startingWep = LM.GenWeapon(1);
+            //Console.WriteLine("Starting weapon : " + startingWep.Name);
 
-            Console.ReadKey();
+            //Armour startingArm = LM.GenArmour(1);
+            //Console.WriteLine("Starting armour : " + startingArm.Name);
+
+            GM.Menu();
+
+            while (GM.GameActive == true)
+            {
+                Console.WriteLine("\nWhat would you like to do? \n");
+                GM.ProcCommand(Console.ReadLine());
+            }
+        
         }
     }
 }

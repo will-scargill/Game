@@ -42,5 +42,26 @@ namespace Game.Managers
                 Convert.ToInt32(data[index][6])
                 );
         }
+
+        public static Armour GenArmour(int floornum)
+        {
+            Random random = new Random();
+            int rarityOfItem;
+            if (floornum < 10) { rarityOfItem = random.Next((80 - (floornum - 1 * 10)), 100); }
+            else { rarityOfItem = random.Next((80 - (floornum * 10)), (100 - (10 * (floornum - 9)))); }
+
+            Console.WriteLine(rarityOfItem);
+
+            List<List<string>> data = DBM.SQLRaw("SELECT * FROM Armours WHERE rarity >= " + rarityOfItem, "Armours");
+            int index = random.Next(data.Count);
+
+            return new Armour(data[index][1],
+                Convert.ToInt32(data[index][2]),
+                data[index][3],
+                data[index][4],
+                Convert.ToDouble(data[index][5]),
+                Convert.ToInt32(data[index][6])
+                );
+        }
     }
 }

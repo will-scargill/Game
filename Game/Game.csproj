@@ -8,12 +8,13 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>Game</RootNamespace>
     <AssemblyName>Game</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -61,12 +62,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Managers\DBM.cs" />
-    <Compile Include="Managers\DM.cs" />
-    <Compile Include="Managers\LM.cs" />
+    <Compile Include="Managers\DatabaseManager.cs" />
+    <Compile Include="Managers\DisplayManager.cs" />
+    <Compile Include="Managers\LootManager.cs" />
     <Compile Include="Objects\Armour.cs" />
     <Compile Include="Objects\Consumable.cs" />
-    <Compile Include="Managers\GM.cs" />
+    <Compile Include="Managers\GameManager.cs" />
     <Compile Include="Objects\Player.cs" />
     <Compile Include="Objects\Weapon.cs" />
     <Compile Include="Program.cs" />

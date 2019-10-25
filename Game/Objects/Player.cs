@@ -20,9 +20,58 @@ namespace Game.Objects
         public Armour ArmourSlotOne { get; set; }
         public Armour ArmourSlotTwo { get; set; }
         public Armour ArmourSlotThree { get; set; }
-        public string Inventory { get; set; }
+        public List<object> Inventory { get; set; }
 
-        public void EquipWeapon()
+        public bool EquipWeapon(Weapon w)
+        {
+            if (this.Inventory.Contains(w))
+            {
+                this.EquippedWep = w;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool EquipArmour(Armour a, int slot)
+        {
+            if (this.Inventory.Contains(a))
+            {
+                switch (slot)
+                {
+                    case 1:
+                        this.ArmourSlotOne = a;
+                        return true;
+                    case 2:
+                        this.ArmourSlotTwo = a;
+                        return true;
+                    case 3:
+                        this.ArmourSlotThree = a;
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public void UseConsumable(Consumable c)
+        {
+            if (this.Inventory.Contains(c))
+            {
+                switch (c.Type)
+                {
+                    case "H":
+                        break;
+
+                }
+            }
+        }
 
         public Player(int hp, int mn, int str, int dex, int con, int luck, int inte)
         {

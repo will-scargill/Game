@@ -65,7 +65,11 @@ namespace Game.Managers
             {
                 case "Weapons":
                     while (reader.Read())
-                        data.Add(new List<string> { reader["id"].ToString(), reader["name"].ToString(), reader["durability"].ToString(), reader["weapontype"].ToString(), reader["damagetype"].ToString(), reader["damage"].ToString(), reader["durability"].ToString() });
+                        data.Add(new List<string> { reader["id"].ToString(), reader["name"].ToString(), reader["durability"].ToString(), reader["weapontype"].ToString(), reader["damagetype"].ToString(), reader["damage"].ToString(), reader["rarity"].ToString() });
+                    break;
+                case "Armours":
+                    while (reader.Read())
+                        data.Add(new List<string> { reader["id"].ToString(), reader["name"].ToString(), reader["durability"].ToString(), reader["armourtype"].ToString(), reader["protectiontype"].ToString(), reader["protection"].ToString(), reader["rarity"].ToString() });
                     break;
             }
             reader.Close();
