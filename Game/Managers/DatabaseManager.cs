@@ -34,6 +34,12 @@ namespace Game.Managers
                     sql = "CREATE TABLE 'Armours' ( 'id' INTEGER PRIMARY KEY AUTOINCREMENT, 'name' TEXT, 'durability' INT, 'armourtype' TEXT, 'protectiontype' TEXT, 'protection' REAL, 'rarity' INT )";
                     command = new SQLiteCommand(sql, dbConn); /// Use sql command on database
                     reader = command.ExecuteReader(); /// Setup reader
+                    sql = "CREATE TABLE 'Monsters' ( 'id' INTEGER PRIMARY KEY AUTOINCREMENT, 'name' TEXT, 'health' INT, 'mana' INT, 'strength' INT, 'dexterity' INT, 'constitution' INT, 'intelligence' INT, 'luck' INT, 'weapontype' TEXT, 'damagetype' TEXT, 'damage' REAL, 'isboss' BOOL, 'rarity' INT )";
+                    command = new SQLiteCommand(sql, dbConn); /// Use sql command on database
+                    reader = command.ExecuteReader(); /// Setup reader
+                    sql = "CREATE TABLE 'Items' ( 'id' INTEGER PRIMARY KEY AUTOINCREMENT, 'name' TEXT, 'buffstat' TEXT, 'buffvalue' INT, 'nerfstat' TEXT, 'nerfvalue' INT, 'rarity' INT)";
+                    command = new SQLiteCommand(sql, dbConn); /// Use sql command on database
+                    reader = command.ExecuteReader(); /// Setup reader
                 }
             }
         }
@@ -70,6 +76,10 @@ namespace Game.Managers
                 case "Armours":
                     while (reader.Read())
                         data.Add(new List<string> { reader["id"].ToString(), reader["name"].ToString(), reader["durability"].ToString(), reader["armourtype"].ToString(), reader["protectiontype"].ToString(), reader["protection"].ToString(), reader["rarity"].ToString() });
+                    break;
+                case "Monsters":
+                    while (reader.Read())
+                        data.Add(new List<string> { reader["id"].ToString(), reader["name"].ToString(), reader["health"].ToString(), reader["mana"].ToString(), reader["strength"].ToString(), reader["dexterity"].ToString(), reader["constitution"].ToString(), reader["intelligence"].ToString(), reader["luck"].ToString(), reader["weapontype"].ToString(), reader["damagetype"].ToString(), reader["damage"].ToString(), reader["isboss"].ToString(), reader["rarity"].ToString(), reader["mana"].ToString() });
                     break;
             }
             reader.Close();

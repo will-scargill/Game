@@ -9,7 +9,10 @@ namespace Game.Objects
     class Player
     {
         public int Health { get; set; }
+        public int XP { get; set; }
+        public int CurrentHealth { get; set; }
         public int Mana { get; set; }
+        public int CurrentMana { get; set; }
         public int Strength { get; set; }
         public int Dexterity { get; set; }
         public int Constitution { get; set; }
@@ -20,7 +23,11 @@ namespace Game.Objects
         public Armour ArmourSlotOne { get; set; }
         public Armour ArmourSlotTwo { get; set; }
         public Armour ArmourSlotThree { get; set; }
+        public Item ItemSlotOne { get; set; }
+        public Item ItemSlotTwo { get; set; }
+        public Item ItemSlotThree { get; set; }
         public List<object> Inventory { get; set; }
+        public int Gold { get; set; }
 
         public bool EquipWeapon(Weapon w)
         {
@@ -73,10 +80,38 @@ namespace Game.Objects
             }
         }
 
+        public bool EquipItem(Item i, int slot)
+        {
+            if (this.Inventory.Contains(i))
+            {
+                switch (slot)
+                {
+                    case 1:
+                        this.ItemSlotOne = i;
+                        return true;
+                    case 2:
+                        this.ItemSlotTwo = i;
+                        return true;
+                    case 3:
+                        this.ItemSlotThree = i;
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public Player(int hp, int mn, int str, int dex, int con, int luck, int inte)
         {
             this.Health = hp;
+            this.XP = 0;
+            this.CurrentHealth = hp;
             this.Mana = mn;
+            this.CurrentMana = mn;
             this.Strength = str;
             this.Dexterity = dex;
             this.Constitution = con;
@@ -87,8 +122,11 @@ namespace Game.Objects
             this.ArmourSlotOne = null;
             this.ArmourSlotTwo = null;
             this.ArmourSlotThree = null;
-            this.Inventory = null;
-            
+            this.ItemSlotOne = null;
+            this.ItemSlotTwo = null;
+            this.ItemSlotThree = null;
+            this.Inventory = new List<object>();
+            this.Gold = 0;
         }
     }
 }

@@ -12,17 +12,15 @@ namespace Game
     {
         static void Main(string[] args)
         {
-            //DBM.SQLInitialise();
-            //Player player = GM.Init();
-            //DM.ShowStats(player);
-
-            //Weapon startingWep = LM.GenWeapon(1);
-            //Console.WriteLine("Starting weapon : " + startingWep.Name);
-
-            //Armour startingArm = LM.GenArmour(1);
-            //Console.WriteLine("Starting armour : " + startingArm.Name);
+            DBM.SQLInitialise();
 
             GM.Menu();
+
+            Console.WriteLine(@"
+start - Starts the game
+options - Opens the options menu
+modules - Opens the modules menu
+exit - Exits the game");
 
             while (GM.GameActive == true)
             {

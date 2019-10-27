@@ -29,9 +29,7 @@ namespace Game.Managers
             if (floornum < 10) { rarityOfItem = random.Next((80 - (floornum-1 * 10)), 100); }
             else { rarityOfItem = random.Next((80 - (floornum * 10)), (100 - (10 * (floornum-9)))); }
 
-            Console.WriteLine(rarityOfItem);
-
-            List<List<string>> data = DBM.SQLRaw("SELECT * FROM Weapons WHERE rarity >= " + rarityOfItem, "Weapons");
+            List<List<string>> data = DBM.SQLRaw("SELECT * FROM Weapons WHERE rarity >= " + rarityOfItem + " ORDER BY rarity ASC", "Weapons");
             int index = random.Next(data.Count);
 
             return new Weapon(data[index][1],
@@ -50,8 +48,6 @@ namespace Game.Managers
             if (floornum < 10) { rarityOfItem = random.Next((80 - (floornum - 1 * 10)), 100); }
             else { rarityOfItem = random.Next((80 - (floornum * 10)), (100 - (10 * (floornum - 9)))); }
 
-            Console.WriteLine(rarityOfItem);
-
             List<List<string>> data = DBM.SQLRaw("SELECT * FROM Armours WHERE rarity >= " + rarityOfItem, "Armours");
             int index = random.Next(data.Count);
 
@@ -63,5 +59,7 @@ namespace Game.Managers
                 Convert.ToInt32(data[index][6])
                 );
         }
+
+        
     }
 }
