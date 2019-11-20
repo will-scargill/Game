@@ -1,5 +1,6 @@
 ﻿using Game.Managers;
 using System;
+using System.Collections.Generic;
 using System.Threading;
 
 namespace Game.Objects
@@ -8,12 +9,18 @@ namespace Game.Objects
     {
         public static bool GameActive = true;
         public static string Phase = null;
+        public static string subPhase = "None";
+        public static string equipType = null;
+        public static object equipObject = null;
+        public static bool bossUsedSpecial = false;
+        public static string loadUnload = null;
 
         public static int floor = 1;
         public static int room = 0;
 
         public static Player player;
         public static Monster roomMonster;
+        public static Boss floorBoss;
 
         public static void ProcCommand(string command)
         {
@@ -25,13 +32,167 @@ namespace Game.Objects
 
                 }
             }
+            else if (subPhase == "Equipping")
+            {
+                switch (command)
+                {
+                    case "cancel":
+                        subPhase = "None";
+                        break;
+                    case "inventory":
+                        Console.Clear();
+                        DM.ShowInventory(player);
+                        break;
+                    case "stats":
+                        Console.Clear();
+                        DM.ShowStats(player);
+                        break;
+                    case "help":
+                        Console.Clear();
+                        Console.WriteLine(@"
+cancel - Stops equiping
+inventory - Displays your inventory
+stats - Displays your stats
+next - Move to the next room");
+                        break;
+                    default:
+                        Console.Clear();
+
+                        string isItem = IvM.IsInputItem(command);
+                        if (isItem == "None")
+                        {
+                            Console.Clear();
+                            Console.WriteLine("\nType 'help' to view all commands");
+                        }
+                        else if (isItem == "Armour" || isItem == "Item")
+                        {
+                            subPhase = "SlotSelection";
+                        }
+                        else
+                        {
+                            subPhase = "None";
+                        }
+                        break;
+
+                }
+            }
+            else if (subPhase == "SlotSelection")
+            {
+                switch (command)
+                {
+                    case "1":
+                        if (equipType == "Armour")
+                        {
+                            IvM.CheckAlreadyEquipped(equipObject, "Armour");
+                            player.ArmourSlotOne = (Armour)(equipObject);
+                            subPhase = "None";
+                            Console.Clear();
+                        }
+                        else if (equipType == "Item")
+                        {
+                            IvM.CheckAlreadyEquipped(equipObject, "Item");
+                            player.ItemSlotOne = (Item)(equipObject);
+                            subPhase = "None";
+                            Console.Clear();
+                        }
+                        break;
+                    case "2":
+                        if (equipType == "Armour")
+                        {
+                            IvM.CheckAlreadyEquipped(equipObject, "Armour");
+                            player.ArmourSlotTwo = (Armour)(equipObject);
+                            subPhase = "None";
+                            Console.Clear();
+                        }
+                        else if (equipType == "Item")
+                        {
+                            IvM.CheckAlreadyEquipped(equipObject, "Item");
+                            player.ItemSlotTwo = (Item)(equipObject);
+                            subPhase = "None";
+                            Console.Clear();
+                        }
+                        break;
+                    case "3":
+                        if (equipType == "Armour")
+                        {
+                            IvM.CheckAlreadyEquipped(equipObject, "Armour");
+                            player.ArmourSlotThree = (Armour)(equipObject);
+                            subPhase = "None";
+                            Console.Clear();
+                        }
+                        else if (equipType == "Item")
+                        {
+                            IvM.CheckAlreadyEquipped(equipObject, "Item");
+                            player.ItemSlotThree = (Item)(equipObject);
+                            subPhase = "None";
+                            Console.Clear();
+                        }
+                        break;
+                    default:
+                        Console.Clear();
+                        subPhase = "Equipping";
+                        break;
+                }
+            }
+            else if (subPhase == "Inspecting")
+            {
+                DM.InspectItem(command);
+            }
+            else if (subPhase == "Modules")
+            {
+                switch (command)
+                {
+                    case "load":
+                        Console.Clear();
+                        Console.WriteLine("\nWhich module would you like to load?");
+                        loadUnload = "load";
+                        subPhase = "LoadUnload";
+                        break;
+                    case "unload":
+                        Console.Clear();
+                        Console.WriteLine("\nWhich module would you like to unload?");
+                        loadUnload = "unload";
+                        subPhase = "LoadUnload";
+                        break;
+                    case "modules":
+                        Console.Clear();
+                        DM.DisplayModules();
+                        break;
+                    case "help":
+                        Console.Clear();
+                        Console.WriteLine(@"
+load - Load a module
+unload - Unloads a module
+modules - Show modules
+return - Exits the game");
+                        break;
+                    case "return":
+                        Console.Clear();
+                        Menu();
+                        subPhase = "None";
+                        break;
+                    default:
+                        Console.Clear();
+                        Console.WriteLine("\nType 'help' to view all commands");
+                        break;
+                }
+            }
+            else if (subPhase == "LoadUnload")
+            {
+                Console.Clear();
+                if (loadUnload == "load")
+                    MM.LoadModule(command);
+                else if (loadUnload == "unload")
+                    MM.UnloadModule(command);
+                subPhase = "Modules";
+            }
             else if (Phase == "Menu")
             {
                 switch (command)
                 {
                     case "start":
                         Console.Clear();
-                        Init();                        
+                        Init();
                         break;
                     case "options":
                         Console.Clear();
@@ -40,8 +201,8 @@ namespace Game.Objects
                         break;
                     case "modules":
                         Console.Clear();
-                        Menu();
-                        Console.WriteLine("\nOpen modules menu");
+                        subPhase = "Modules";
+                        DM.DisplayModules();
                         break;
                     case "help":
                         Console.Clear();
@@ -82,11 +243,26 @@ exit - Exits the game");
                         Console.Clear();
                         RoomEnter();
                         break;
+                    case "equip":
+                        Console.Clear();
+                        subPhase = "Equipping";
+                        break;
+                    case "equipped":
+                        Console.Clear();
+                        DM.ShowEquipped(player);
+                        break;
+                    case "inspect":
+                        Console.Clear();
+                        subPhase = "Inspecting";
+                        break;
                     case "help":
                         Console.Clear();
                         Console.WriteLine(@"
 inventory - Displays your inventory
 stats - Displays your stats
+inspect - Checks the effects of an item
+equip - Change your equipment
+equipped - Check your equipped items
 next - Move to the next room");
                         break;
                     default:
@@ -97,7 +273,31 @@ next - Move to the next room");
             }
             else if (Phase == "RoomEnter")
             {
-                // lol idk you shouldnt be here
+                switch (command)
+                {
+                    case "inventory":
+                        Console.Clear();
+                        DM.ShowInventory(player);
+                        break;
+                    case "stats":
+                        Console.Clear();
+                        DM.ShowStats(player);
+                        break;
+                    case "help":
+                        Console.Clear();
+                        Console.WriteLine(@"
+inventory - Displays your inventory
+stats - Displays your stats
+check - Shows the monster and other battle information
+attack - Attack using your weapon
+magic - Use a spell
+item - Use an item from your inventory");
+                        break;
+                    default:
+                        Console.Clear();
+                        Console.WriteLine("\nType 'help' to view all commands");
+                        break;
+                }
             }
             else if (Phase == "CombatPlayerTurn")
             {
@@ -113,14 +313,16 @@ next - Move to the next room");
                         break;
                     case "check":
                         Console.Clear();
-                        DM.ShowBattleUI(player, roomMonster);
+                        if (room == 6) { DM.ShowBattleUI(player, floorBoss, true); }
+                        else { DM.ShowBattleUI(player, roomMonster, false); }
+
                         break;
                     case "attack":
                         Console.Clear();
                         int damage = EM.CalculatePlayerMeleeDamage(player);
                         roomMonster.CurrentHealth -= damage;
                         Console.WriteLine("You dealt " + damage + " points of damage to the " + roomMonster.Name);
-                        player.EquippedWep.Durability -= 1;
+                        // player.EquippedWep.Durability -= 1;
 
                         Console.WriteLine("DEBUG: current monster hp: " + roomMonster.CurrentHealth);
 
@@ -137,7 +339,7 @@ next - Move to the next room");
                         else
                         {
                             CombatEnemyTurn();
-                        }                        
+                        }
                         break;
                     case "help":
                         Console.Clear();
@@ -214,18 +416,46 @@ ______                                      _____                    _
         {
             Phase = "RoomEnter";
             room++;
-            if (room == 7) // finished large treasure room after boss
+            if (room == 8) // finished large treasure room after boss
             {
                 room = 0;
                 floor++;
             }
-            else if (room == 3 || room == 6) // treasure room
+            else if (room == 3 || room == 7) // treasure room
             {
-                
+                if (room == 3) // Regular treasure room
+                {
+                    List<object> treasure = LM.GenerateTreasure(2, floor, new Random());
+                    foreach (object t in treasure)
+                    {
+                        player.Inventory.Add(t);
+                    }
+                    DM.DisplayTreasure(treasure);
+                    RoomFinish();
+                }
+                else // Large treasure room
+                {
+                    List<object> treasure = LM.GenerateTreasure(4, floor, new Random());
+                    foreach (object t in treasure)
+                    {
+                        player.Inventory.Add(t);
+                    }
+                    DM.DisplayTreasure(treasure);
+                    RoomFinish();
+                }
             }
-            else if (room == 5) // boss room
+            else if (room == 6) // boss room
             {
-                
+                floorBoss = EM.GetBossMonster(floor);
+
+                if (player.Dexterity > floorBoss.Dexterity || player.Dexterity == floorBoss.Dexterity)
+                {
+                    CombatPlayerTurn();
+                }
+                else if (player.Dexterity < floorBoss.Dexterity)
+                {
+                    CombatEnemyTurn();
+                }
             }
             else // monster room
             {
@@ -246,16 +476,22 @@ ______                                      _____                    _
         {
             Console.Clear();
             Phase = "CombatPlayerTurn";
-            DM.ShowBattleUITurn(player, roomMonster, 0);
+            if (room == 6) { DM.ShowBattleUITurn(player, roomMonster, 0, true); }
+            else { DM.ShowBattleUITurn(player, roomMonster, 0, false); }
+            
         }
 
         public static void CombatEnemyTurn()
         {
             Console.Clear();
             Phase = "CombatEnemyTurn";
-            DM.ShowBattleUITurn(player, roomMonster, 1);
+            if (room == 6) { DM.ShowBattleUITurn(player, floorBoss, 1, true); }
+            else { DM.ShowBattleUITurn(player, roomMonster, 1, false); }
             Thread.Sleep(2000);
-            int damage = EM.CalculateMonsterDamage(roomMonster, player);
+            int damage;
+            if (room == 6) { damage = EM.CalculateBossMonsterDamage(floorBoss, player); }
+            else { damage = EM.CalculateMonsterDamage(roomMonster, player); }
+            
             player.CurrentHealth -= damage;
             Console.Clear();
             Console.WriteLine("You took " + damage + " points of damage");

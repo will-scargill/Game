@@ -1,0 +1,17 @@
+﻿{
+  "weapons": [
+    [ "Light Blade", "Piercing", "Physical", 500.0, 100 ]
+  ],
+  "armours": [
+  ],
+  "consumables": [
+  ],
+  "items": [
+  ],
+  "spells": [
+  ],
+  "monsters": [
+  ],
+  "bosses": [
+  ]
+}

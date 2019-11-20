@@ -19,7 +19,7 @@ namespace Game.Objects
         public int Luck { get; set; }
         public int Intelligence { get; set; }
         public Weapon EquippedWep { get; set; }
-        public string Magic { get; set; }
+        public List<Spell> Magic { get; set; }
         public Armour ArmourSlotOne { get; set; }
         public Armour ArmourSlotTwo { get; set; }
         public Armour ArmourSlotThree { get; set; }

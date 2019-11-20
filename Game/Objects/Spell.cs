@@ -6,21 +6,23 @@ using System.Threading.Tasks;
 
 namespace Game.Objects
 {
-    class Weapon
+    class Spell
     {
         public string Name { get; set; }
-        public string WeaponType { get; set; }
+        public int ManaCost { get; set; }
+        public string MagicType { get; set; }
         public string DamageType { get; set; }
         public double Damage { get; set; }
         public int Rarity { get; set; }
 
-        public Weapon(string name, string wtype, string dtype, double damage, int rarity)
+        public Spell(string name, int mc, string mtype, string dtype, double damage, int r)
         {
             this.Name = name;
-            this.WeaponType = wtype;
+            this.ManaCost = mc;
+            this.MagicType = mtype;
             this.DamageType = dtype;
             this.Damage = damage;
-            this.Rarity = rarity;
+            this.Rarity = r;
         }
     }
 }

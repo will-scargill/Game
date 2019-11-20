@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Game.Objects
 {
-    class Monster
+    class Boss
     {
         public string Name { get; set; }
         public int Health { get; set; }
@@ -22,10 +22,13 @@ namespace Game.Objects
         public string WeaponType { get; set; }
         public string DamageType { get; set; }
         public double Damage { get; set; }
+        public string SpecialType { get; set; }
+        public int SpecialValue { get; set; }
+        public int SpecialCost { get; set; }
         public int Rarity { get; set; }
 
 
-        public Monster(string name, int hp, int mn, string type, int str, int dex, int con, int luck, int inte, string wtype, string dtype, double d, int r)
+        public Boss(string name, int hp, int mn, string type, int str, int dex, int con, int luck, int inte, string wtype, string dtype, double d, string stype, int svalue, int scost, int r)
         {
             this.Name = name;
             this.Health = hp;
@@ -41,6 +44,9 @@ namespace Game.Objects
             this.WeaponType = wtype;
             this.DamageType = dtype;
             this.Damage = d;
+            this.SpecialType = stype;
+            this.SpecialValue = svalue;
+            this.SpecialCost = scost;
             this.Rarity = r;
         }
     }

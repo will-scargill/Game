@@ -42,6 +42,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -65,24 +68,32 @@
     <Compile Include="Managers\DatabaseManager.cs" />
     <Compile Include="Managers\DisplayManager.cs" />
     <Compile Include="Managers\EncounterManager.cs" />
+    <Compile Include="Managers\InventoryManager.cs" />
+    <Compile Include="Managers\ItemManager.cs" />
     <Compile Include="Managers\LootManager.cs" />
     <Compile Include="Managers\ModuleManager.cs" />
     <Compile Include="Objects\Armour.cs" />
+    <Compile Include="Objects\Boss.cs" />
     <Compile Include="Objects\Consumable.cs" />
     <Compile Include="Managers\GameManager.cs" />
     <Compile Include="Objects\Item.cs" />
     <Compile Include="Objects\Monster.cs" />
     <Compile Include="Objects\Player.cs" />
+    <Compile Include="Objects\Spell.cs" />
     <Compile Include="Objects\Weapon.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <Content Include="Modules\core.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Modules\addon.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Modules\" />
+    <Folder Include="Phases\subPhases\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\System.Data.SQLite.Core.1.0.111.0\build\net46\System.Data.SQLite.Core.targets" Condition="Exists('..\packages\System.Data.SQLite.Core.1.0.111.0\build\net46\System.Data.SQLite.Core.targets')" />
