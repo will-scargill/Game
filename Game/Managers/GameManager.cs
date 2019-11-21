@@ -3,7 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 
-namespace Game.Objects
+using Game.Objects;
+using Game.Phases;
+using Game.Phases.subPhases;
+
+namespace Game.Managers
 {
     static class GM // Game Manager
     {
@@ -34,105 +38,11 @@ namespace Game.Objects
             }
             else if (subPhase == "Equipping")
             {
-                switch (command)
-                {
-                    case "cancel":
-                        subPhase = "None";
-                        break;
-                    case "inventory":
-                        Console.Clear();
-                        DM.ShowInventory(player);
-                        break;
-                    case "stats":
-                        Console.Clear();
-                        DM.ShowStats(player);
-                        break;
-                    case "help":
-                        Console.Clear();
-                        Console.WriteLine(@"
-cancel - Stops equiping
-inventory - Displays your inventory
-stats - Displays your stats
-next - Move to the next room");
-                        break;
-                    default:
-                        Console.Clear();
-
-                        string isItem = IvM.IsInputItem(command);
-                        if (isItem == "None")
-                        {
-                            Console.Clear();
-                            Console.WriteLine("\nType 'help' to view all commands");
-                        }
-                        else if (isItem == "Armour" || isItem == "Item")
-                        {
-                            subPhase = "SlotSelection";
-                        }
-                        else
-                        {
-                            subPhase = "None";
-                        }
-                        break;
-
-                }
+                subPhaseEquipping.Parse(command);
             }
             else if (subPhase == "SlotSelection")
             {
-                switch (command)
-                {
-                    case "1":
-                        if (equipType == "Armour")
-                        {
-                            IvM.CheckAlreadyEquipped(equipObject, "Armour");
-                            player.ArmourSlotOne = (Armour)(equipObject);
-                            subPhase = "None";
-                            Console.Clear();
-                        }
-                        else if (equipType == "Item")
-                        {
-                            IvM.CheckAlreadyEquipped(equipObject, "Item");
-                            player.ItemSlotOne = (Item)(equipObject);
-                            subPhase = "None";
-                            Console.Clear();
-                        }
-                        break;
-                    case "2":
-                        if (equipType == "Armour")
-                        {
-                            IvM.CheckAlreadyEquipped(equipObject, "Armour");
-                            player.ArmourSlotTwo = (Armour)(equipObject);
-                            subPhase = "None";
-                            Console.Clear();
-                        }
-                        else if (equipType == "Item")
-                        {
-                            IvM.CheckAlreadyEquipped(equipObject, "Item");
-                            player.ItemSlotTwo = (Item)(equipObject);
-                            subPhase = "None";
-                            Console.Clear();
-                        }
-                        break;
-                    case "3":
-                        if (equipType == "Armour")
-                        {
-                            IvM.CheckAlreadyEquipped(equipObject, "Armour");
-                            player.ArmourSlotThree = (Armour)(equipObject);
-                            subPhase = "None";
-                            Console.Clear();
-                        }
-                        else if (equipType == "Item")
-                        {
-                            IvM.CheckAlreadyEquipped(equipObject, "Item");
-                            player.ItemSlotThree = (Item)(equipObject);
-                            subPhase = "None";
-                            Console.Clear();
-                        }
-                        break;
-                    default:
-                        Console.Clear();
-                        subPhase = "Equipping";
-                        break;
-                }
+                subPhaseSlotSelection.Parse(command);
             }
             else if (subPhase == "Inspecting")
             {
@@ -140,222 +50,31 @@ next - Move to the next room");
             }
             else if (subPhase == "Modules")
             {
-                switch (command)
-                {
-                    case "load":
-                        Console.Clear();
-                        Console.WriteLine("\nWhich module would you like to load?");
-                        loadUnload = "load";
-                        subPhase = "LoadUnload";
-                        break;
-                    case "unload":
-                        Console.Clear();
-                        Console.WriteLine("\nWhich module would you like to unload?");
-                        loadUnload = "unload";
-                        subPhase = "LoadUnload";
-                        break;
-                    case "modules":
-                        Console.Clear();
-                        DM.DisplayModules();
-                        break;
-                    case "help":
-                        Console.Clear();
-                        Console.WriteLine(@"
-load - Load a module
-unload - Unloads a module
-modules - Show modules
-return - Exits the game");
-                        break;
-                    case "return":
-                        Console.Clear();
-                        Menu();
-                        subPhase = "None";
-                        break;
-                    default:
-                        Console.Clear();
-                        Console.WriteLine("\nType 'help' to view all commands");
-                        break;
-                }
+                subPhaseModules.Parse(command);
             }
             else if (subPhase == "LoadUnload")
             {
-                Console.Clear();
-                if (loadUnload == "load")
-                    MM.LoadModule(command);
-                else if (loadUnload == "unload")
-                    MM.UnloadModule(command);
-                subPhase = "Modules";
+                subPhaseLoadUnload.Parse(command);
             }
             else if (Phase == "Menu")
             {
-                switch (command)
-                {
-                    case "start":
-                        Console.Clear();
-                        Init();
-                        break;
-                    case "options":
-                        Console.Clear();
-                        Menu();
-                        Console.WriteLine("\nOpen options menu");
-                        break;
-                    case "modules":
-                        Console.Clear();
-                        subPhase = "Modules";
-                        DM.DisplayModules();
-                        break;
-                    case "help":
-                        Console.Clear();
-                        Menu();
-                        Console.WriteLine(@"
-start - Starts the game
-options - Opens the options menu
-modules - Opens the modules menu
-exit - Exits the game");
-                        break;
-                    case "exit":
-                        GameActive = false;
-                        break;
-                    default:
-                        Console.Clear();
-                        Menu();
-                        Console.WriteLine("\nType 'help' to view all commands");
-                        break;
-                }
+                phaseMenu.Parse(command);
             }
             else if (Phase == "Init")
             {
-
+                // 
             }
             else if (Phase == "RoomFinish")
             {
-                switch (command)
-                {
-                    case "inventory":
-                        Console.Clear();
-                        DM.ShowInventory(player);
-                        break;
-                    case "stats":
-                        Console.Clear();
-                        DM.ShowStats(player);
-                        break;
-                    case "next":
-                        Console.Clear();
-                        RoomEnter();
-                        break;
-                    case "equip":
-                        Console.Clear();
-                        subPhase = "Equipping";
-                        break;
-                    case "equipped":
-                        Console.Clear();
-                        DM.ShowEquipped(player);
-                        break;
-                    case "inspect":
-                        Console.Clear();
-                        subPhase = "Inspecting";
-                        break;
-                    case "help":
-                        Console.Clear();
-                        Console.WriteLine(@"
-inventory - Displays your inventory
-stats - Displays your stats
-inspect - Checks the effects of an item
-equip - Change your equipment
-equipped - Check your equipped items
-next - Move to the next room");
-                        break;
-                    default:
-                        Console.Clear();
-                        Console.WriteLine("\nType 'help' to view all commands");
-                        break;
-                }
+                phaseRoomFinish.Parse(command);
             }
             else if (Phase == "RoomEnter")
             {
-                switch (command)
-                {
-                    case "inventory":
-                        Console.Clear();
-                        DM.ShowInventory(player);
-                        break;
-                    case "stats":
-                        Console.Clear();
-                        DM.ShowStats(player);
-                        break;
-                    case "help":
-                        Console.Clear();
-                        Console.WriteLine(@"
-inventory - Displays your inventory
-stats - Displays your stats
-check - Shows the monster and other battle information
-attack - Attack using your weapon
-magic - Use a spell
-item - Use an item from your inventory");
-                        break;
-                    default:
-                        Console.Clear();
-                        Console.WriteLine("\nType 'help' to view all commands");
-                        break;
-                }
+                phaseRoomEnter.Parse(command);
             }
             else if (Phase == "CombatPlayerTurn")
             {
-                switch (command)
-                {
-                    case "inventory":
-                        Console.Clear();
-                        DM.ShowInventory(player);
-                        break;
-                    case "stats":
-                        Console.Clear();
-                        DM.ShowStats(player);
-                        break;
-                    case "check":
-                        Console.Clear();
-                        if (room == 6) { DM.ShowBattleUI(player, floorBoss, true); }
-                        else { DM.ShowBattleUI(player, roomMonster, false); }
-
-                        break;
-                    case "attack":
-                        Console.Clear();
-                        int damage = EM.CalculatePlayerMeleeDamage(player);
-                        roomMonster.CurrentHealth -= damage;
-                        Console.WriteLine("You dealt " + damage + " points of damage to the " + roomMonster.Name);
-                        // player.EquippedWep.Durability -= 1;
-
-                        Console.WriteLine("DEBUG: current monster hp: " + roomMonster.CurrentHealth);
-
-                        Thread.Sleep(2000);
-
-                        if (EM.CheckMonsterDeath(roomMonster))
-                        {
-                            Console.Clear();
-                            Console.WriteLine("The " + roomMonster.Name + " was defeated!");
-                            player.Gold += EM.GetGold(roomMonster);
-                            Thread.Sleep(2000);
-                            RoomFinish();
-                        }
-                        else
-                        {
-                            CombatEnemyTurn();
-                        }
-                        break;
-                    case "help":
-                        Console.Clear();
-                        Console.WriteLine(@"
-inventory - Displays your inventory
-stats - Displays your stats
-check - Shows the monster and other battle information
-attack - Attack using your weapon
-magic - Use a spell
-item - Use an item from your inventory");
-                        break;
-                    default:
-                        Console.Clear();
-                        Console.WriteLine("\nType 'help' to view all commands");
-                        break;
-                }
+                phaseCombatPlayerTurn.Parse(command);
             }
             else if (Phase == "CombatEnemyTurn")
             {
