@@ -33,19 +33,31 @@ namespace Game.Phases
                 case "attack":
                     Console.Clear();
                     int damage = EM.CalculatePlayerMeleeDamage(GM.player);
-                    GM.roomMonster.CurrentHealth -= damage;
-                    Console.WriteLine("You dealt " + damage + " points of damage to the " + GM.roomMonster.Name);
-                    // player.EquippedWep.Durability -= 1;
+                    if (GM.room == 6) { GM.floorBoss.CurrentHealth -= damage; }
+                    else { GM.roomMonster.CurrentHealth -= damage; }
 
-                    Console.WriteLine("DEBUG: current monster hp: " + GM.roomMonster.CurrentHealth);
+                    if (GM.room == 6) { Console.WriteLine("You dealt " + damage + " points of damage to the " + GM.floorBoss.Name); }
+                    else { Console.WriteLine("You dealt " + damage + " points of damage to the " + GM.roomMonster.Name); }
+
+                    if (GM.room == 6) { Console.WriteLine("DEBUG: current monster hp: " + GM.floorBoss.CurrentHealth); }
+                    else { Console.WriteLine("DEBUG: current monster hp: " + GM.roomMonster.CurrentHealth); }
+                    
 
                     Thread.Sleep(2000);
 
-                    if (EM.CheckMonsterDeath(GM.roomMonster))
+                    if (GM.room != 6 && EM.CheckMonsterDeath(GM.roomMonster))
                     {
                         Console.Clear();
                         Console.WriteLine("The " + GM.roomMonster.Name + " was defeated!");
                         GM.player.Gold += EM.GetGold(GM.roomMonster);
+                        Thread.Sleep(2000);
+                        GM.RoomFinish();
+                    }
+                    else if (GM.room == 6 && EM.CheckBossDeath(GM.floorBoss))
+                    {
+                        Console.Clear();
+                        Console.WriteLine("The " + GM.floorBoss.Name + " was defeated!");
+                        GM.player.Gold += 200;
                         Thread.Sleep(2000);
                         GM.RoomFinish();
                     }

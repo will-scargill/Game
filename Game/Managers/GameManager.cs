@@ -18,9 +18,10 @@ namespace Game.Managers
         public static object equipObject = null;
         public static bool bossUsedSpecial = false;
         public static string loadUnload = null;
+        public static int UpgradesLeft = 0;
 
         public static int floor = 1;
-        public static int room = 0;
+        public static int room = 5;
 
         public static Player player;
         public static Monster roomMonster;
@@ -55,6 +56,10 @@ namespace Game.Managers
             else if (subPhase == "LoadUnload")
             {
                 subPhaseLoadUnload.Parse(command);
+            }
+            else if (subPhase == "StatUpgrade")
+            {
+                subPhaseStatUpgrade.Parse(command);
             }
             else if (Phase == "Menu")
             {
@@ -128,6 +133,11 @@ ______                                      _____                    _
 
         public static void RoomFinish()
         {
+            if (room == 6)
+            {
+                subPhase = "StatUpgrade";
+                UpgradesLeft = 2;
+            }
             Phase = "RoomFinish";
         }
 
@@ -140,7 +150,7 @@ ______                                      _____                    _
                 room = 0;
                 floor++;
             }
-            else if (room == 3 || room == 7) // treasure room
+            if (room == 3 || room == 7) // treasure room
             {
                 if (room == 3) // Regular treasure room
                 {
@@ -176,6 +186,10 @@ ______                                      _____                    _
                     CombatEnemyTurn();
                 }
             }
+            else if (room == 0) // start of new floor
+            {
+                RoomFinish();
+            }
             else // monster room
             {
                 roomMonster = EM.GetMonster(floor);
@@ -195,7 +209,7 @@ ______                                      _____                    _
         {
             Console.Clear();
             Phase = "CombatPlayerTurn";
-            if (room == 6) { DM.ShowBattleUITurn(player, roomMonster, 0, true); }
+            if (room == 6) { DM.ShowBattleUITurn(player, floorBoss, 0, true); }
             else { DM.ShowBattleUITurn(player, roomMonster, 0, false); }
             
         }

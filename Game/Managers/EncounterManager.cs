@@ -339,6 +339,18 @@ namespace Game.Managers
             }
         }
 
+        public static bool CheckBossDeath(Boss boss)
+        {
+            if (boss.CurrentHealth <= 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public static bool CheckGameOver(Player player)
         {
             if (player.CurrentHealth <= 0)
@@ -355,5 +367,7 @@ namespace Game.Managers
         {
             return monster.Health / 10;
         }
+
+
     }
 }

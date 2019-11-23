@@ -44,7 +44,14 @@ exit - Exits the game");
                     case "LoadUnload":
                         Console.WriteLine("\nWhich module?\n");
                         break;
+                    case "StatUpgrade":
+                        Console.WriteLine("\nWhat stat would you like to upgrade?\n");
+                        break;
                     case "None":
+                        if (GM.player != null && GM.Phase == "RoomFinish")
+                        {
+                            Console.WriteLine("\nFloor: " + GM.floor.ToString() + " | Room: " + GM.room.ToString());
+                        }
                         Console.WriteLine("\nWhat would you like to do?\n");
                         break;
                     default:
@@ -52,9 +59,48 @@ exit - Exits the game");
                         break;
                 }
                 string command = Console.ReadLine();
-                GM.ProcCommand(command);
+                switch (command)
+                {
+                    case "debug_restart":
+                        Console.Clear();
+                        GM.Init();
+                        break;
+                    case "debug_kill":
+                        try { GM.roomMonster.Health = 0; }
+                        catch (System.NullReferenceException) { }
+                        try { GM.floorBoss.Health = 0; }
+                        catch (System.NullReferenceException) { }
+                        break;
+                    case "debug_op":
+                        GM.player.Inventory.Add(new Weapon(
+                            "Debug Weapon",
+                            "Piercing",
+                            "Physical",
+                            99999,
+                            0));
+                        GM.player.Inventory.Add(new Armour(
+                            "Debug Armour",
+                            "Chestplate",
+                            "Physical",
+                            99999,
+                            0));
+                        break;
+                    case "debug_stat":
+                        GM.player.Intelligence = 99;
+                        GM.player.Mana += 2475;
+                        GM.player.CurrentMana += 2475;
+                        GM.player.Strength = 99;
+                        GM.player.Constitution = 99;
+                        GM.player.Health += 990;
+                        GM.player.CurrentHealth += 990;
+                        GM.player.Dexterity = 99;
+                        GM.player.Luck = 99;
+                        break;
+                    default:
+                        GM.ProcCommand(command);
+                        break;
+                }
             }
-        
         }
     }
 }

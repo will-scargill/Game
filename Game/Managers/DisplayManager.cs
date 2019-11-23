@@ -56,7 +56,7 @@ namespace Game.Managers
             Console.WriteLine("------------------------------------------");
             if (isboss == true)
             {
-                Console.WriteLine("ehh its a boss lol");
+                Console.WriteLine("Floor Boss: " + ((Boss)monster).Name);
             }
             else
             {
@@ -96,6 +96,7 @@ namespace Game.Managers
 
         public static void DisplayTreasure(List<object> treasure)
         {
+            Console.WriteLine("=== Your Treasure ===");
             foreach(object t in treasure)
             {
                 if (t.GetType() == typeof(Weapon))
