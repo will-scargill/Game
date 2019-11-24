@@ -20,6 +20,7 @@ namespace Game.Phases.subPhases
                     {
                         IvM.CheckAlreadyEquipped(GM.equipObject, "Armour");
                         GM.player.ArmourSlotOne = (Armour)(GM.equipObject);
+                        IvM.CheckItemEffects("Equipped", ((Item)(GM.equipObject)));
                         GM.subPhase = "None";
                         Console.Clear();
                     }
@@ -27,6 +28,7 @@ namespace Game.Phases.subPhases
                     {
                         IvM.CheckAlreadyEquipped(GM.equipObject, "Item");
                         GM.player.ItemSlotOne = (Item)(GM.equipObject);
+                        IvM.CheckItemEffects("Equipped", ((Item)(GM.equipObject)));
                         GM.subPhase = "None";
                         Console.Clear();
                     }
@@ -43,6 +45,7 @@ namespace Game.Phases.subPhases
                     {
                         IvM.CheckAlreadyEquipped(GM.equipObject, "Item");
                         GM.player.ItemSlotTwo = (Item)(GM.equipObject);
+                        IvM.CheckItemEffects("Equipped", ((Item)(GM.equipObject)));
                         GM.subPhase = "None";
                         Console.Clear();
                     }
@@ -59,6 +62,7 @@ namespace Game.Phases.subPhases
                     {
                         IvM.CheckAlreadyEquipped(GM.equipObject, "Item");
                         GM.player.ItemSlotThree = (Item)(GM.equipObject);
+                        IvM.CheckItemEffects("Equipped", ((Item)(GM.equipObject)));
                         GM.subPhase = "None";
                         Console.Clear();
                     }

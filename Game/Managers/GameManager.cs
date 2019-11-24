@@ -20,8 +20,8 @@ namespace Game.Managers
         public static string loadUnload = null;
         public static int UpgradesLeft = 0;
 
-        public static int floor = 1;
-        public static int room = 5;
+        public static int floor = 2;
+        public static int room = 0;
 
         public static Player player;
         public static Monster roomMonster;
@@ -138,6 +138,7 @@ ______                                      _____                    _
                 subPhase = "StatUpgrade";
                 UpgradesLeft = 2;
             }
+            Console.WriteLine("\nFloor: " + GM.floor.ToString() + " | Room: " + GM.room.ToString());
             Phase = "RoomFinish";
         }
 
@@ -149,6 +150,8 @@ ______                                      _____                    _
             {
                 room = 0;
                 floor++;
+                player.CurrentHealth = player.Health;
+                player.CurrentMana = player.Mana;
             }
             if (room == 3 || room == 7) // treasure room
             {

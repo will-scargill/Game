@@ -28,7 +28,14 @@ namespace Game.Phases
                     Console.Clear();
                     if (GM.room == 6) { DM.ShowBattleUI(GM.player, GM.floorBoss, true); }
                     else { DM.ShowBattleUI(GM.player, GM.roomMonster, false); }
-
+                    break;
+                case "equipped":
+                    Console.Clear();
+                    DM.ShowEquipped(GM.player);
+                    break;
+                case "inspect":
+                    Console.Clear();
+                    GM.subPhase = "Inspecting";
                     break;
                 case "attack":
                     Console.Clear();
@@ -74,6 +81,8 @@ stats - Displays your stats
 check - Shows the monster and other battle information
 attack - Attack using your weapon
 magic - Use a spell
+equipped - Check your equipped items
+inspect - Checks the effects of an item
 item - Use an item from your inventory");
                     break;
                 default:

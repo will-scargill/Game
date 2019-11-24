@@ -48,10 +48,6 @@ exit - Exits the game");
                         Console.WriteLine("\nWhat stat would you like to upgrade?\n");
                         break;
                     case "None":
-                        if (GM.player != null && GM.Phase == "RoomFinish")
-                        {
-                            Console.WriteLine("\nFloor: " + GM.floor.ToString() + " | Room: " + GM.room.ToString());
-                        }
                         Console.WriteLine("\nWhat would you like to do?\n");
                         break;
                     default:

@@ -1,4 +1,6 @@
-﻿using System;
+﻿
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,7 +24,7 @@ namespace Game.Managers
             // Implement scaling stat code here
 
             return new Monster(data[index][1],
-                Convert.ToInt32(data[index][2]),
+                Convert.ToInt32(data[index][2]) + (15 * (GM.floor - 1)),
                 Convert.ToInt32(data[index][3]),
                 data[index][4],
                 Convert.ToInt32(data[index][5]),
@@ -32,7 +34,7 @@ namespace Game.Managers
                 Convert.ToInt32(data[index][9]),
                 data[index][10],
                 data[index][11],
-                Convert.ToDouble(data[index][12]),
+                Convert.ToDouble(data[index][12]) + (5 * (GM.floor - 1)),
                 Convert.ToInt32(data[index][13]));
         }
 
@@ -183,6 +185,10 @@ namespace Game.Managers
 
 
             totalDamage = Convert.ToInt32(damage);
+            if (totalDamage < 0)
+            {
+                totalDamage = 0;
+            }
             return totalDamage;
         }
 
@@ -264,6 +270,10 @@ namespace Game.Managers
 
 
                 totalDamage = Convert.ToInt32(damage);
+                if (totalDamage < 0)
+                {
+                    totalDamage = 0;
+                }
                 return totalDamage;
             }
             

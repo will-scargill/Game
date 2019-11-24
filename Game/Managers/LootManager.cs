@@ -135,7 +135,7 @@ namespace Game.Managers
                             if (breakoutCounter >= 5)
                             {
                                 treasure.Add(GenConsumable(floornum));
-                                //Console.WriteLine("Duplicate breakout");
+                                Console.WriteLine("Duplicate weapon breakout");
                                 break;
                             }
                         }
@@ -156,7 +156,7 @@ namespace Game.Managers
                             if (breakoutCounter >= 5)
                             {
                                 treasure.Add(GenConsumable(floornum));
-                                //Console.WriteLine("Duplicate breakout");
+                                Console.WriteLine("Duplicate armour breakout");
                                 break;
                             }
                         }
@@ -180,7 +180,7 @@ namespace Game.Managers
                             if (breakoutCounter >= 5)
                             {
                                 treasure.Add(GenConsumable(floornum));
-                                //Console.WriteLine("Duplicate breakout");
+                                Console.WriteLine("Duplicate item breakout");
                                 break;
                             }
                         }

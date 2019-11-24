@@ -58,9 +58,9 @@ namespace Game.Managers
             else if (type == "Item")
             {
                 Item item = (Item)(o);
-                if (GM.player.ItemSlotOne == item) { GM.player.ItemSlotOne = null; }
-                if (GM.player.ItemSlotTwo == item) { GM.player.ItemSlotTwo = null; }
-                if (GM.player.ItemSlotThree == item) { GM.player.ItemSlotThree = null; }
+                if (GM.player.ItemSlotOne == item) { CheckItemEffects("Unequipped", GM.player.ItemSlotOne);  GM.player.ItemSlotOne = null; }
+                if (GM.player.ItemSlotTwo == item) { CheckItemEffects("Unequipped", GM.player.ItemSlotTwo); GM.player.ItemSlotTwo = null; }
+                if (GM.player.ItemSlotThree == item) { CheckItemEffects("Unequipped", GM.player.ItemSlotThree); GM.player.ItemSlotThree = null; }
             }
         }
 
@@ -75,12 +75,16 @@ namespace Game.Managers
                         break;
                     case "Intelligence":
                         GM.player.Intelligence += item.BuffValue;
+                        GM.player.Mana += 20 * item.BuffValue;
+                        GM.player.CurrentMana += 20 * item.BuffValue;
                         break;
                     case "Dexterity":
                         GM.player.Dexterity += item.BuffValue;
                         break;
                     case "Constitution":
                         GM.player.Constitution += item.BuffValue;
+                        GM.player.Health += 10 * item.BuffValue;
+                        GM.player.CurrentHealth += 10 * item.BuffValue;
                         break;
                     case "Luck":
                         GM.player.Luck += item.BuffValue;
@@ -94,12 +98,16 @@ namespace Game.Managers
                         break;
                     case "Intelligence":
                         GM.player.Intelligence -= item.NerfValue;
+                        GM.player.Mana -= 20 * item.BuffValue;
+                        GM.player.CurrentMana -= 20 * item.BuffValue;
                         break;
                     case "Dexterity":
                         GM.player.Dexterity -= item.NerfValue;
                         break;
                     case "Constitution":
                         GM.player.Constitution -= item.NerfValue;
+                        GM.player.Health -= 10 * item.BuffValue;
+                        GM.player.CurrentHealth -= 10 * item.BuffValue;
                         break;
                     case "Luck":
                         GM.player.Luck -= item.NerfValue;

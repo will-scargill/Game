@@ -39,6 +39,10 @@ namespace Game.Phases
                     Console.Clear();
                     GM.subPhase = "Inspecting";
                     break;
+                case "check":
+                    Console.Clear();
+                    Console.WriteLine("\nFloor: " + GM.floor.ToString() + " | Room: " + GM.room.ToString());
+                    break;
                 case "help":
                     Console.Clear();
                     Console.WriteLine(@"
@@ -47,6 +51,7 @@ stats - Displays your stats
 inspect - Checks the effects of an item
 equip - Change your equipment
 equipped - Check your equipped items
+check - Checks the floor and room number
 next - Move to the next room");
                     break;
                 default:
