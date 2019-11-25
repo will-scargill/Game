@@ -20,7 +20,6 @@ namespace Game.Phases.subPhases
                     {
                         IvM.CheckAlreadyEquipped(GM.equipObject, "Armour");
                         GM.player.ArmourSlotOne = (Armour)(GM.equipObject);
-                        IvM.CheckItemEffects("Equipped", ((Item)(GM.equipObject)));
                         GM.subPhase = "None";
                         Console.Clear();
                     }

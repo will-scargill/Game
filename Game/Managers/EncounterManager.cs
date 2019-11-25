@@ -138,6 +138,7 @@ namespace Game.Managers
             }
             else if (monster.DamageType == "Magical")
             {
+                damage += monster.Damage;
                 damage += (monster.Intelligence / 2);
             }
 

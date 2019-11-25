@@ -16,6 +16,7 @@
   ],
   "consumables": [
     [ "Apple", "Health", 10.0, 100 ],
+	[ "Crystal Shard", "Mana", 5.0, 100 ],
     [ "Magika Potion", "Mana", 45.0, 60 ],
     [ "Restorative Potion", "Health", 50.0, 65 ],
     [ "Minor Magika Potion", "Mana", 15.0, 80 ],
@@ -52,8 +53,8 @@
     [ "Slime", 25, 0, "Normal", 2, 0, 4, 0, 1, "Bludgeoning", "Physical", 3.0, 100 ],
     [ "Goblin", 35, 0, "Normal", 4, 2, 2, 1, 1, "Slashing", "Physical", 5.0, 100 ],
     [ "Wraith", 55, 0, "Spectral", 1, 5, 4, 5, 1, "Slashing", "Magical", 8.0, 100 ],
-    [ "Gnoll", 15, 0, "Necrotic", 1, 6, 2, 1, 1, "Piercing", "Physical", 7.0, 100 ],
-    [ "Ghost", 25, 25, "Spectral", 1, 3, 4, 4, 1, "Slashing", "Magical", 4.0, 100 ],
+    [ "Gnoll", 15, 0, "Necrotic", 4, 6, 2, 1, 1, "slashing", "Physical", 7.0, 100 ],
+    [ "Ghost", 25, 25, "Spectral", 3, 3, 4, 4, 1, "Slashing", "Magical", 4.0, 100 ],
     [ "Swarm of flies", 25, 0, "Normal", 1, 10, 4, 4, 1, "Piercing", "Physical", 5.0, 100 ],
     [ "Hive", 35, 0, "Necrotic", 5, 1, 4, 1, 1, "Piercing", "Physical", 11.0, 100 ],
     [ "Drowned", 45, 0, "Necrotic", 6, 1, 2, 1, 1, "Slashing", "Physical", 11.0, 79 ],

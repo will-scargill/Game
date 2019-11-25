@@ -20,7 +20,7 @@ namespace Game.Managers
         public static string loadUnload = null;
         public static int UpgradesLeft = 0;
 
-        public static int floor = 2;
+        public static int floor = 1;
         public static int room = 0;
 
         public static Player player;
